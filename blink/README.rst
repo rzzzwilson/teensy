@@ -18,13 +18,3 @@ double blink the LED using the time poll approach.  This program uses a state
 machine to handle the more complex double blink.  I've also added a second state
 machine to handle printing something back to the serial monitor every 1.5
 seconds.
-
-Gripe
------
-
-The Arduino build system wants it's own filetypes - won't open and read a \*.c
-file!  I have to cut and paste the code into the IDE!!  And I also have to cut
-and paste changed code _back_ into the source code file as the IDE won't let me
-save *anywhere* in the filesystem but only to a few selected places!!!  GRRRRR.
-
-Must switch to a command line environment as soon as possible.

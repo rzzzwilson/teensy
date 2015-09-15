@@ -53,7 +53,8 @@ void usb_state_machine(long time)
                 next_time = time;
                 /* FALL THROUGH */
             case 1:                        // write debug
-                Serial.println("Hello World");
+                Serial.print(time, DEC);    
+                Serial.println(" msec");                   
                 next_time += UsbWait;
                 state = 1;
                 break;

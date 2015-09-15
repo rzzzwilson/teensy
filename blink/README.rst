@@ -18,3 +18,9 @@ double blink the LED using the time poll approach.  This program uses a state
 machine to handle the more complex double blink.  I've also added a second state
 machine to handle printing something back to the serial monitor every 1.5
 seconds.
+
+**BlinkTimer.c** is a teensy demonstration program using timers.  Got it from
+`here <https://www.pjrc.com/teensy/td_timing_IntervalTimer.html>`_.
+
+**blink_timer_double.c** is my rewrite of *BlinkTimer.c* to double blink with
+timers and the state machine approach.

@@ -1,7 +1,9 @@
-# teensy
-A place for code I've written for the "teensy".
+teensy
+======
 
-See `the web site of my favorite programming language`__.
+A place for code I've written for the `teensy`__ microcontroller.
 
-.. __: http://www.python.org
+At first, this is just *paddling around, experimental* code.
+
+.. __: https://www.pjrc.com/teensy/teensy31.html
 

@@ -14,33 +14,33 @@ bounce.  For example, the sample output below shows a switch initially closed.
 Upon changing to the OPEN state we see 4 bounces before the switch stays OPEN.
 The next state change (to CLOSED) sees 20 bounces!
 
-    998305 samples with button CLOSED
-    1 samples with button OPEN
-    1 samples with button CLOSED
-    40 samples with button OPEN
-    1 samples with button CLOSED
-    390703 samples with button OPEN
-    1 samples with button CLOSED
-    1 samples with button OPEN
-    1 samples with button CLOSED
-    4 samples with button OPEN
-    8 samples with button CLOSED
-    4 samples with button OPEN
-    3 samples with button CLOSED
-    1 samples with button OPEN
-    21 samples with button CLOSED
-    1 samples with button OPEN
-    1 samples with button CLOSED
-    22 samples with button OPEN
-    2 samples with button CLOSED
-    1 samples with button OPEN
-    10 samples with button CLOSED
-    1 samples with button OPEN
-    32 samples with button CLOSED
-    2 samples with button OPEN
-    6 samples with button CLOSED
-    1 samples with button OPEN
-    4337362 samples with button CLOSED
+  | 998305 samples with button CLOSED
+  | 1 samples with button OPEN
+  | 1 samples with button CLOSED
+  | 40 samples with button OPEN
+  | 1 samples with button CLOSED
+  | 390703 samples with button OPEN
+  | 1 samples with button CLOSED
+  | 1 samples with button OPEN
+  | 1 samples with button CLOSED
+  | 4 samples with button OPEN
+  | 8 samples with button CLOSED
+  | 4 samples with button OPEN
+  | 3 samples with button CLOSED
+  | 1 samples with button OPEN
+  | 21 samples with button CLOSED
+  | 1 samples with button OPEN
+  | 1 samples with button CLOSED
+  | 22 samples with button OPEN
+  | 2 samples with button CLOSED
+  | 1 samples with button OPEN
+  | 10 samples with button CLOSED
+  | 1 samples with button OPEN
+  | 32 samples with button CLOSED
+  | 2 samples with button OPEN
+  | 6 samples with button CLOSED
+  | 1 samples with button OPEN
+  | 4337362 samples with button CLOSED
 
 The sample rate seems quite high, but this is C and not assembler.  Plus, upon
 a state change we spend time writing strings to the serial port, probably missing

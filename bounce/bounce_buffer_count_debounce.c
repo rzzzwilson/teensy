@@ -36,7 +36,7 @@ bool DebouncedKeyPress = false;
 // Service routine called every CHECK_MSEC to debounce both edges
 void DebounceSwitch1(bool *Key_changed, bool *Key_pressed)
 {
-    static int Count = RELEASE_MSEC / CHECK_MSEC;
+    static unsigned char Count = RELEASE_MSEC / CHECK_MSEC;
     bool RawState;
 
     *Key_changed = false;
@@ -73,7 +73,7 @@ void DebounceSwitch1(bool *Key_changed, bool *Key_pressed)
 // Service routine called by a timer interrupt
 bool DebounceSwitch2()
 {
-    static int State = 0; // Current debounce status
+    static unsigned int State = 0; // Current debounce status
 
     State = (State<<1) | !RawKeyPressed() | 0xe000;
     if (State==0xf000)

@@ -101,23 +101,23 @@ One event was noticed with 50 bounces before settling!
 bounces occurred before settling.  A state that remains unchanged for 100000
 samples is considered settled.
 
-  | 1 change going to state CLOSED
-  | 1 change going to state OPEN
-  | 9 changes going to state CLOSED
+  | 0 changes going to state OPEN
+  | 3 changes going to state CLOSED
   | 1 change going to state OPEN
   | 3 changes going to state CLOSED
   | 1 change going to state OPEN
-  | 1 change going to state CLOSED
-  | 8 changes going to state CLOSED
+  | 7 changes going to state CLOSED
+  | 1 change going to state OPEN
+  | 7 changes going to state CLOSED
   | 1 change going to state OPEN
   | 3 changes going to state CLOSED
-  | 3 changes going to state OPEN
-  | 1 change going to state CLOSED
   | 1 change going to state OPEN
-  | 1 change going to state CLOSED
+  | 5 changes going to state CLOSED
   | 1 change going to state OPEN
-  | 11 changes going to state CLOSED
+  | 5 changes going to state CLOSED
   | 1 change going to state OPEN
-  | 3 changes going to state CLOSED
 
 This shows the need for switch de-bounce!
+
+**bounce_buffer_count_debounce.c** is derived from **bounce_buffer_count.c**
+but includes software debounce before the test code.

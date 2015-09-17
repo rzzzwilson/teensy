@@ -117,7 +117,8 @@ samples is considered settled.
   | 5 changes going to state CLOSED
   | 1 change going to state OPEN
 
-This shows the need for switch de-bounce!
+This shows the need for switch de-bounce!  Note that you must not manipluate the
+switch too quickly else you'll overrun the settling waiting time.
 
 **bounce_buffer_count_debounce.c** is derived from **bounce_buffer_count.c**
 but includes software debounce before the test code.

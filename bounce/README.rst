@@ -7,10 +7,9 @@ behave as an ideal switch, but the circuit closes (or opens) with a series of
 all code below is:
 
 .. image:: bounce_breadboard.png
-    :width: 632
-    :height: 576
-    :scale: 50 %
-    :alt: circuit used to test switch bounce
+    :width: 316
+    :height: 218
+    :alt: circuit used to test switch bounce (http://fritzing.org/)
 
 
 **bounce.c** is a program that checks the high/low status of pin 7 which is

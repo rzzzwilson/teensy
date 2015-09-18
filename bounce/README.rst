@@ -7,8 +7,8 @@ behave as an ideal switch, but the circuit closes (or opens) with a series of
 all code below is:
 
 .. image:: bounce_breadboard.png
-    :width: 316
-    :height: 288
+    :width: 632
+    :height: 576
     :scale: 50 %
     :alt: circuit used to test switch bounce
 

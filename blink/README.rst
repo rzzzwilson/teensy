@@ -5,7 +5,7 @@ The teensy `tutorials <https://www.pjrc.com/teensy/tutorial.html>`_ start
 with a 'blink' example which is a very simple *hello world!* example that
 blinks the on-board LED.  The circuit used is just the teensy 3.1 board:
 
-.. image:: bounce_breadboard.png
+.. image:: blink_breadboard.png
     :width: 211
     :height: 261
     :alt: circuit used to test blink code (http://fritzing.org/)

@@ -3,7 +3,10 @@ Bounce
 
 A mechanical pushbutton suffers from 'bounce'.  That is, the switch doesn't
 behave as an ideal switch, but the circuit closes (or opens) with a series of
-'bounces' before the final state of the switch is reached.
+'bounces' before the final state of the switch is reached.  The circuit used in
+all code below is:
+
+.. image:: bounce_breadboard.png
 
 **bounce.c** is a program that checks the high/low status of pin 7 which is
 attached to a pullup resistor and pushbutton pulling the resistor to ground.

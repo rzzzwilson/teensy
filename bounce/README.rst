@@ -9,6 +9,7 @@ all code below is:
 .. image:: bounce_breadboard.png
     :width: 316
     :height: 288
+    :scale: 50 %
     :alt: circuit used to test switch bounce
 
 

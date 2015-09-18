@@ -11,6 +11,8 @@ all code below is:
     :height: 218
     :alt: circuit used to test switch bounce (http://fritzing.org/)
 
+Note that the actual resistor used is a 10kohm, not the shown 220ohm.  Must
+learn how to use other resistors in fritzing!
 
 **bounce.c** is a program that checks the high/low status of pin 7 which is
 attached to a pullup resistor and pushbutton pulling the resistor to ground.

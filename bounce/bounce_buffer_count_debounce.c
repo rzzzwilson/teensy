@@ -18,51 +18,35 @@
 // Debounced switch state
 bool DebouncedSwitchState = false;
 
-// latest actual switch state
-bool LastState = false;
+// last actual switch state as found by interrupt routine
+bool LastRawState = DebouncedSwitchState;
 
-// last state as found by timer routine
-bool LastTimerState = true;
-
-// debounce timer (microseconds)
+// latest _timer_ switch state
+bool LastTimerState = !DebouncedSwitchState;
+// debounce timer period (microseconds)
 const long DebounceTime = 10000;
-
 // timer needs to see TimerTimes unchanged state
 const int TimerTimes = 5;
 int TimerCount = 0;
 
-//////////////////////////////////////////////////////////////
-
-// the pin the switch is attached to
-const int SwitchPin = 7;
-// store this number of results
-const int MaxBuffer = 2048;
-
-const long int BounceLimit = 100000;
-
-unsigned long Count = 0;
-int BounceCount = 0;
-unsigned long CountBuffer[MaxBuffer];
-bool BoolBuffer[MaxBuffer];
-unsigned int Index = 0;
-
 void myTimer(void)
 {
     cli();
-    bool state = digitalRead(7);
-    if (state == LastTimerState)
+    ++TimerCount;
+    if (LastTimerState == LastRawState)
     {
-	if (++TimerCount > TimerTimes)
-	{
-	    // settled
-            DebouncedSwitchState = state;
-	    TimerCount = 0;
-	}
+        if (TimerCount == TimerTimes)
+        {
+            DebouncedSwitchState = LastTimerState;
+//            save(TimerCount, LastTimerState, (char *) "Timer: new DebouncedSwitchState");
+//            TimerCount = 0;
+        }
     }
     else
     {
-	TimerCount = 0;
-        LastTimerState = state;
+//        save(TimerCount, LastTimerState, (char *) "Timer: state change, new LastTimerState");
+        TimerCount = 0;
+        LastTimerState = LastRawState;
     }
     sei();
 }
@@ -70,14 +54,38 @@ void myTimer(void)
 void isrCheckSwitch(void)
 {
     cli();
-    LastState = digitalRead(7);
+    LastRawState = digitalRead(7);
+//    save(0, LastRawState, (char *) "ISR: new LastRawState");
     sei();
 }
+
+//////////////////////////////////////////////////////////////
+// normal code variables
+
+// the pin the switch is attached to
+const int SwitchPin = 7;
+// store this number of results
+const int MaxBuffer = 2048;
+
+const long int BounceLimit = 100000;
+const long int ReportTimeout = 1000000;
+
+unsigned long Count = 0;
+int BounceCount = 0;
+unsigned long CountBuffer[MaxBuffer];
+bool BoolBuffer[MaxBuffer];
+char *OpBuffer[MaxBuffer];
+unsigned int Index = 0;
+
+//////////////////////////////////////////////////////////////
+// Normal code below here
 
 void setup()
 {
     Serial.begin(115200);
     pinMode(SwitchPin, INPUT);
+
+    // debounce service code below
     attachInterrupt(SwitchPin, isrCheckSwitch, CHANGE);
     Timer1.initialize(DebounceTime);
     Timer1.attachInterrupt(myTimer);
@@ -89,6 +97,7 @@ void report(void)
     {
         unsigned long count = CountBuffer[i];
         bool state = BoolBuffer[i];
+        char *op = OpBuffer[i];
 
         Serial.print(count);
         if (count == 1)
@@ -97,38 +106,50 @@ void report(void)
             Serial.print(" edges going to state ");
 
         if (state)
-            Serial.println("OPEN");
+            Serial.print("OPEN, op=");
         else
-            Serial.println("CLOSED");
+            Serial.print("CLOSED, op=");
+
+        Serial.println(op);
     }
 
     Index = 0;
 }
 
+void save(unsigned long count, bool state, char *op)
+{
+    CountBuffer[Index] = count;
+    BoolBuffer[Index] = state;
+    OpBuffer[Index] = op;
+    ++Index;
+}
+
 void loop()
 {
-    static bool last_state = false;
+    static bool last_state = !DebouncedSwitchState;
 
     if (DebouncedSwitchState == last_state)
     {
-        if (Count == BounceLimit)
+        ++BounceCount;
+        if (BounceCount == BounceLimit)
         {
             // switch has settled, save bounce count
-            CountBuffer[Index] = BounceCount;
-            BoolBuffer[Index] = DebouncedSwitchState;
-            ++Index;
-            BounceCount = 0;
+            save(BounceCount, DebouncedSwitchState, (char *) "Change **********************");
+            Count = 0;
         }
     }
     else
     {
-        ++BounceCount;
-        last_state = DebouncedSwitchState;
+        BounceCount = 0;
         Count = 0;
+        last_state = DebouncedSwitchState;
     }
 
     ++Count;
 
-    if (Count > 2000000)
+    if (Count > ReportTimeout)
+    {
         report();
+	Count = 0;
+    }
 }

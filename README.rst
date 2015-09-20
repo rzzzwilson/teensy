@@ -23,7 +23,7 @@ One way around this is to fiddle with directories and code names.  For instance,
 if we have a program **test.c** that we want to run in the Arduino IDE then we
 can create a subdirectory called **test** and copy **test.c** into it with a name
 change to **test.ino**.  The Arduino IDE will now open the code and compile it.
-If you change the code in the IDE then you must copy test/test.ino back to 
-test.c.  Clumsy.
+If you change the code in the IDE then you must copy **test/test.ino** back to 
+**test.c**.  Clumsy.
 
 Must switch to a command line environment as soon as possible.

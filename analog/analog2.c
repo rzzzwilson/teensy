@@ -1,11 +1,11 @@
 /*
     Analog input - read voltage and print it.
-
-    Code modified from: https://www.arduino.cc/en/Tutorial/AnalogInOutSerial
+    Print only if change exceeds a delta.
 */
 
 // the analog pin to read voltage from
 const int analogInPin = A0;
+const int changeDelta = 1;
 
 int potValue = 0;
 int mappedValue = 0;
@@ -20,7 +20,7 @@ void loop()
     int pot_value = analogRead(analogInPin);
     int mapped_value = map(pot_value, 0, 1023, 0, 255);
 
-    if (mapped_value != mappedValue)
+    if (abs(mapped_value - mappedValue) > changeDelta)
     {
         Serial.print("pot value = ");
         Serial.print(pot_value);

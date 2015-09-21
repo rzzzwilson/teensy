@@ -15,7 +15,7 @@ void setup()
 void loop()
 {
     int pot = analogRead(analogInPin);
-    int mapped = map(pot, 0, 1023, 1, 256);
+    int mapped = map(pot, 0, 1023, 20, 256);
 
     digitalWrite(ledPin, HIGH);
     delay(mapped);

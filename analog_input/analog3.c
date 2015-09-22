@@ -8,7 +8,6 @@ const int ledPin = LED_BUILTIN;	// pin 13 for teensy 3.1
 
 void setup()
 {
-    Serial.begin(9600);
     pinMode(ledPin, OUTPUT);
 }
 

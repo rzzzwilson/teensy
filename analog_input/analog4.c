@@ -34,7 +34,7 @@ void blinkLED(void)
     if (newTime)
     {
         myTimer.end();
-        myTimer.begin(blinkLED, mappedValue*1000);
+        myTimer.begin(blinkLED, lastMappedValue*1000);
         newTime = false;
     }
 

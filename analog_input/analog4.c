@@ -4,6 +4,8 @@
     Use timer to control LED flash.
 */
 
+#include <math.h>
+
 // the analog pin to read voltage from
 const int analogInPin = A0;
 const int ledPin = LED_BUILTIN;        // pin 13 for teensy 3.1
@@ -47,8 +49,11 @@ void blinkLED(void)
 void loop()
 {
     mappedValue = map(analogRead(analogInPin), 0, 1023, 20, 500);
-    if (abs(mappedValue - lastMappedValue) > 3)
+    if (abs(mappedValue - lastMappedValue))
+    {
         newTime = true;
+        lastMappedValue = mappedValue;
+    }
 
     // wait before the next loop - allow ADC to settle
     delay(50);

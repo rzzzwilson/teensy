@@ -41,5 +41,6 @@ code doesn't read the pot until the flash cycle is finished.
 **analog4.c** is a rewrite of *analog3.c* to remove the flaw menioned above.
 That is, we want the flashing to change immediately when the pot is changed.
 We do this by controlling the flashing by using a timer and pot changes are 
-noticed via interrupt.  This gets tricky as a pot change requires stopping 
-running timers and restarting a flash cycle.
+noticed via polling in the loop() function.  This gets tricky as a pot change
+requires stopping running timers and restarting a flash cycle.  The result is
+that when at slow flash rates pot changes pause the flashing.

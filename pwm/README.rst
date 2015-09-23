@@ -16,8 +16,8 @@ The 0.1uF capacitor is to smooth the PWM outoput somewhat.
 **pwm_led.c** uses code similar to *pwm.c* to write a decreasing sawtooth
 PWM voltage to pin 10 to light an LED.  The layout is:
 .. image:: breadboard2.png
-    :width: 194
-    :height: 222
+    :width: 223
+    :height: 236
     :alt: circuit used to test PWM output (http://fritzing.org/)
 
 

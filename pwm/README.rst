@@ -11,7 +11,7 @@ a symmetric sawtooth output voltage on pin 10 (TX2).  The layout is:
     :height: 476
     :alt: circuit used to test PWM output (http://fritzing.org/)
 
-The 0.1uF capacitor is to smooth the PWM outoput somewhat.
+The 0.1uF capacitor is to smooth the PWM output somewhat.
 
 **pwm_led.c** uses code similar to *pwm.c* to write a decreasing sawtooth
 PWM voltage to pin 10 to light an LED.  The layout is:

@@ -11,3 +11,4 @@ a symmetric sawtooth output voltage on DAC output pin A14.  The layout used is:
     :height: 440
     :alt: circuit used to test DAC output (http://fritzing.org/)
 
+Note a great example, but the best I can come up with for the moment.

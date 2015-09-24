@@ -21,4 +21,10 @@ PWM voltage to pin 10 to light an LED.  The layout is:
     :height: 236
     :alt: circuit used to test PWM output (http://fritzing.org/)
 
+**pwm_led2.c** just reads an analog voltage on A0 and writes a PWM signal to pin
+10.  The layout is:
+
+.. image:: breadboard3.png                                                       
+    :alt: circuit used to test PWM output (http://fritzing.org/)                 
+                                                                                             
 

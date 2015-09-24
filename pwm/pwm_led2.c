@@ -1,7 +1,7 @@
 /*
-    PWM output - place a decreasing sawtooth voltage onto pin 10 (TX2).
+    PWM output - read an anolog input (pot) and drive PWM LED.
 
-    Use delay() calls in loop() to do this.
+    Put a little delta in to not Serial.print() all the time.
 */
 
 // pin to read potentiometer voltage

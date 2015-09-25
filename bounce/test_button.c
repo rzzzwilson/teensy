@@ -19,6 +19,7 @@ unsigned int ButtonID;
 
 void setup()
 {
+    delay(10000);
     Serial.begin(115200);
     ButtonID = btn_register(SwitchPin, SettleTime);
 //    Button2ID = btn_register(Switch2Pin, SettleTime);

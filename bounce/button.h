@@ -6,11 +6,6 @@
 
 
 /******************************************************************************
- * Interrupt service routine.  Process all registered buttons.
- ******************************************************************************/
-static void btn_isr(void);
-
-/******************************************************************************
  * Register pin as having pushbutton attached.
  *     pin     number of pin with button attached
  *     settle  settle time for the button

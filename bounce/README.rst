@@ -131,3 +131,6 @@ switch too quickly else you'll overrun the settling waiting time.
 
 **bounce_buffer_count_debounce.c** is derived from **bounce_buffer_count.c**
 but includes software debounce before the test code.
+
+**test_bounce.c** is code to test a "button" library code.  The code is all
+within *test_bounce.c* at the moment.

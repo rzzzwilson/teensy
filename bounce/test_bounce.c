@@ -31,14 +31,16 @@ static void btn_isr(void)
 
     for (unsigned int i = 0; i < next_slot; ++i)
     {
+        BUTTON button = buttons[i];
+
         // check status of pin
-        bool state = digitalRead(buttons[i].pin);
+        bool state = digitalRead(button.pin);
        
         // if it has changed remember new state and time it changed 
-        if (state != buttons[i].raw_state)
+        if (state != button.raw_state)
         {
-            buttons[i].raw_state = state;
-            buttons[i].last_time = millis();
+            button.raw_state = state;
+            button.last_time = millis();
         }
     }
 
@@ -61,19 +63,22 @@ unsigned int btn_register(unsigned int pin, unsigned int settle)
         while (true);
     }
 
+    BUTTON button = buttons[next_slot];
+    ++next_slot;
+
     // fill in slot button information
-    buttons[next_slot].pin = pin;
-    buttons[next_slot].settle = settle;
-    buttons[next_slot].state = digitalRead(pin);
-    buttons[next_slot].raw_state = !buttons[next_slot].state;
-    buttons[next_slot].last_time = millis();
+    button.pin = pin;
+    button.settle = settle;
+    button.state = digitalRead(pin);
+    button.raw_state = !button.state;
+    button].last_time = millis();
     // make pin input pin
     pinMode(pin, INPUT);
 
     // if state of pin changes call ISR routine
     attachInterrupt(pin, btn_isr, CHANGE);
 
-    return next_slot++;
+    return next_slot;
 }
 
 /******************************************************************************

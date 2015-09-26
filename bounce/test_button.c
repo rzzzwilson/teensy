@@ -6,11 +6,13 @@
 
 
 // switch bounce settle time (milliseconds)
-const unsigned long SettleTime = 10;
+const unsigned long settleTime = 10;
 
 // the pin the switch is attached to
-const int SwitchPin = 7;
-//const int Switch2Pin = 8;
+const int switchPin = 7;
+
+// the internal LED pin
+const int ledPin = LED_BUILTIN;
 
 // the button ID
 unsigned int ButtonID;
@@ -19,7 +21,8 @@ unsigned int ButtonID;
 void setup()
 {
     Serial.begin(115200);
-    ButtonID = btn_register(SwitchPin, SettleTime);
+    ButtonID = btn_register(switchPin, settleTime);
+    pinMode(ledPin, OUTPUT);
 };
 
 void loop()
@@ -32,6 +35,7 @@ void loop()
         Serial.print("********************New switch value=");
         Serial.println(state);
         old_state = state;
+        digitalWrite(ledPin, state);
     }
 
     delay(50);

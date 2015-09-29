@@ -134,3 +134,7 @@ but includes software debounce before the test code.
 
 **test_bounce.c** is code to test a "button" library code.  The code is all
 within *test_bounce.c* at the moment.
+
+**bounce_timer.c** is test code from:
+http://www.embedded.com/electronics-blogs/break-points/4024981/My-favorite-software-debouncers
+It doesn't work at the moment!

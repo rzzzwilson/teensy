@@ -2,11 +2,13 @@ teensy
 ======
 
 A place for code I've written for the
-`teensy <https://www.pjrc.com/teensy/teensy31.html>`_ microcontroller.
+`teensy 3.1<https://www.pjrc.com/store/teensy31.html>`_ and 
+`teensy 3.2<https://www.pjrc.com/store/teensy32.html>`_ 
+microcontrollers.
 
 At first, this is just *paddling around, experimental* code using the
 Arduino IDE and `teensyduino <https://www.pjrc.com/teensy/loader.html>`_
-patch to handle the teensy 3.1 system.
+patch to handle the teensy system.
 
 Eventually I want to move to more UNIX-like 'make' system, but I can't
 get that working with arduino-1.6.5-r5 yet.

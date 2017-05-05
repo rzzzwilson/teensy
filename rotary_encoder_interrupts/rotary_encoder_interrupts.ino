@@ -9,7 +9,7 @@
 
 // from: file:///Users/r-w/Desktop/AmateurRadio/DDS_VFO/Rotary%20Encoder%20Tutorial.html
 
-#include <p18f14k22.h>
+//#include <p18f14k22.h>
 
 #pragma config FOSC = IRC
 #pragma config WDTEN = OFF

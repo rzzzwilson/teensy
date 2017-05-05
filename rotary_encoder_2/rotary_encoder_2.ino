@@ -10,8 +10,8 @@
 // using pins 22, 23
 
  int val; 
- int encoder0PinA = 23;
- int encoder0PinB = 22;
+ int encoder0PinA = 3;
+ int encoder0PinB = 2;
  int encoder0Pos = 0;
  int encoder0PinALast = LOW;
  int n = LOW;
@@ -20,7 +20,7 @@
  { 
    pinMode(encoder0PinA,INPUT);
    pinMode(encoder0PinB,INPUT);
-   Serial.begin (9600);
+   Serial.begin(9600);
  } 
 
  void loop()

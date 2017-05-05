@@ -16,9 +16,9 @@
 enum enDigitalPins
 {
   // Rotary encoder input lines
-  dpInEncoderA = 22,
-  dpInEncoderB = 23,
-  dpInEncoderPress = 21,
+  dpInEncoderA = 2,
+  dpInEncoderB = 3,
+  dpInEncoderPress = 20,
 };
 
 

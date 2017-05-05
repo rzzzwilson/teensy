@@ -12,18 +12,53 @@ byte smiley[8] = {
   B00000,
 };
 
-void setup() {
-  lcd.createChar(0, smiley);
+byte inv_smiley[8] = {
+  B11111,
+  B01110,
+  B11111,
+  B11111,
+  B01110,
+  B10001,
+  B11111,
+};
+
+byte underline[8] = {0x1f,0x0,0x0,0x0,0x0,0x0,0x0};
+
+
+void setup()
+{
   lcd.begin(16, 2); 
-  for (int i = 0; i < 16; ++i)
-  {
-     lcd.write(byte(0));
-  }
-  lcd.setCursor(0, 1);
-  for (int i = 0; i < 16; ++i)
-  {
-     lcd.write(byte(0));
-  }
+  lcd.createChar(0, underline);
 }
 
-void loop() {}
+void show_frequency(long freq, int selected)
+{
+  
+}
+
+void loop()
+{
+  static int selected = 1;
+
+//  lcd.clear();
+  delay(500);
+  
+  lcd.setCursor(8, 0);
+  for (int i = 1; i < 9; ++i)
+  {
+     lcd.write(i + '0');
+  }
+  lcd.setCursor(8, 1);
+  for (int i = 1; i < 9; ++i)
+  {
+    if (i == selected)
+      lcd.write(byte(0));
+    else
+      lcd.write(" ");
+  }
+
+  // move selection to next character
+  if (++selected > 8)
+      selected = 1;
+}
+

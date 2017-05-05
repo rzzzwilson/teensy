@@ -1,6 +1,7 @@
 # MacOS stuff
 .DS_Store
 *.swp
+*.zip
 
 # # Object files
 *.o

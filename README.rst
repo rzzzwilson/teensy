@@ -8,7 +8,8 @@ microcontrollers.
 
 At first, this is just *paddling around, experimental* code using the
 Arduino IDE and `teensyduino <https://www.pjrc.com/teensy/loader.html>`_
-patch to handle the teensy system.
+patch to handle the teensy system.  Real teensy projects are elsewhere,
+such as the `DigitalVFO project <https://github.com/rzzzwilson/DigitalVFO>`_.
 
 Eventually I want to move to more UNIX-like 'make' system, but I can't
 get that working with arduino-1.6.5-r5 yet.

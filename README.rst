@@ -2,8 +2,8 @@ teensy
 ======
 
 A place for code I've written for the
-`teensy 3.1<https://www.pjrc.com/store/teensy31.html>`_ and 
-`teensy 3.2<https://www.pjrc.com/store/teensy32.html>`_ 
+`teensy 3.1 <https://www.pjrc.com/store/teensy31.html>`_ and 
+`teensy 3.2 <https://www.pjrc.com/store/teensy32.html>`_ 
 microcontrollers.
 
 At first, this is just *paddling around, experimental* code using the

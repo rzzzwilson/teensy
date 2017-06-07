@@ -34,10 +34,7 @@ void setup()
   Serial.begin(115200);
   Serial.println("ILI9341 Test!"); 
 
-  // set the TFT reset to HIGH
-//  pinMode(TFT_RESET, OUTPUT);
-//  digitalWrite(TFT_RESET, LOW);
-  
+  // get the display ready
   tft.begin();
 
   // read diagnostics (optional but can help debug problems)
@@ -69,7 +66,7 @@ void loop(void)
 unsigned long testFillScreen()
 {
   unsigned long start = micros();
-  
+
   tft.fillScreen(ILI9341_BLACK);
   yield();
   tft.fillScreen(ILI9341_RED);
@@ -77,6 +74,12 @@ unsigned long testFillScreen()
   tft.fillScreen(ILI9341_GREEN);
   yield();
   tft.fillScreen(ILI9341_BLUE);
+  yield();
+  tft.fillScreen(ILI9341_YELLOW);
+  yield();
+  tft.fillScreen(ILI9341_WHITE);
+  yield();
+  tft.fillScreen(0xFD20);
   yield();
   tft.fillScreen(ILI9341_BLACK);
   yield();

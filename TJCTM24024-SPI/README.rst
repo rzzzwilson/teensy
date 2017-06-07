@@ -78,7 +78,7 @@ The SD card connections tried are:
 +------------------------------+---------------------------------+
 
 There seems to be some problem with the above setup running with 
-*touchpaint*.  If there is no SD card, it works but sometines freezes
+*touchpaint*.  If there is no SD card, it works but sometimes freezes
 up drawing the initial screen.  With an SD card inserted, the screen stays white
 and nothing else happens.  Try a simple SD-card only program.
 
@@ -89,4 +89,5 @@ The *graphics_test* sketch was the first thing that worked.  It doesn't use the
 touch interface.
 
 The *touchpaint* sketch uses the touch screen.  Works, but there's quite a bit
-of 'jitter' in the returned XY position.
+of 'jitter' in the returned XY position.  Still, it's probably good enough to
+try writing a DigitalVFO v2.0 screen.

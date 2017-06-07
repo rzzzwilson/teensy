@@ -56,14 +56,14 @@ and display:
 +------------------------------+---------------------------------+
 | 13. T_DO                     | 12* (assumed by SPI library)    |
 +------------------------------+---------------------------------+
-| 14. T_IRQ                    | 2 (used by XPT2046_Touchscreen) |
+| 14. T_IRQ                    | 3 (used by XPT2046_Touchscreen) |
 +------------------------------+---------------------------------+
 
 The Teensy pins with asterisk (*) are assumed by the SPI library.
 Other pins are at your discretion but if you change a pin number you
 must make the appropriate change in the code.
 
-The SD card connections are not used yet.
+The SD card connections tried are:
 
 +------------------------------+---------------------------------+
 | SD card pins                 | Teensy pins                     |
@@ -79,7 +79,7 @@ The SD card connections are not used yet.
 
 There seems to be some problem with the above setup running with 
 *touchpaint*.  If there is no SD card, it works but sometines freezes
-up draing the initial screen.  With an SD card inserted, the screen stays white
+up drawing the initial screen.  With an SD card inserted, the screen stays white
 and nothing else happens.  Try a simple SD-card only program.
 
 Programs
@@ -88,4 +88,5 @@ Programs
 The *graphics_test* sketch was the first thing that worked.  It doesn't use the
 touch interface.
 
-The *touchpaint* sketch uses the touch screen.
+The *touchpaint* sketch uses the touch screen.  Works, but there's quite a bit
+of 'jitter' in the returned XY position.

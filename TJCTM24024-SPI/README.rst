@@ -36,7 +36,7 @@ and display:
 +------------------------------+---------------------------------+
 |  3. CS                       | 10* (assumed by SPI library)    |
 +------------------------------+---------------------------------+
-|  4. RESET                    | 8 (or 3.3v if display ONLY)     |
+|  4. RESET                    | 8                               |
 +------------------------------+---------------------------------+
 |  5. D/C                      | 9                               |
 +------------------------------+---------------------------------+
@@ -87,6 +87,9 @@ Programs
 
 The *graphics_test* sketch was the first thing that worked.  It doesn't use the
 touch interface.
+
+The *TouchTest* program is a very simple touch test program.  It just writes
+X, Y and pressure values to the serial monitor.
 
 The *touchpaint* sketch uses the touch screen.  Works, but there's quite a bit
 of 'jitter' in the returned XY position.  Still, it's probably good enough to

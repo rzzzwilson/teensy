@@ -20,6 +20,8 @@
 #include <Adafruit_ILI9341.h>
 #include <XPT2046_Touchscreen.h>
 
+#define USE_TIRQ_PIN  1   // 0 if not using touch interrupt
+
 
 // This is calibration data for the raw touch data to the screen coordinates
 #define TS_MINX 220
@@ -27,11 +29,15 @@
 #define TS_MAXX 3780
 #define TS_MAXY 3850
 
-// The XPT2046 uses hardware SPI on the shield, and #8, with #2 for interrupts
+// The XPT2046 uses hardware SPI on the shield, and #4, with #3 for interrupts, maybe
 #define CS_PIN    4
-//#define TIRQ_PIN  3
-//XPT2046_Touchscreen ts(CS_PIN, TIRQ_PIN);
-XPT2046_Touchscreen ts(CS_PIN);
+#define TIRQ_PIN  3
+
+#if USE_TIRQ_PIN == 1
+  XPT2046_Touchscreen ts(CS_PIN, TIRQ_PIN);
+#else
+  XPT2046_Touchscreen ts(CS_PIN);
+#endif
 
 // The display also uses hardware SPI, plus #9 & #10
 #define TFT_DC 9

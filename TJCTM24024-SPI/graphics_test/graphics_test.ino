@@ -21,17 +21,23 @@
 #include <Fonts/FreeMonoBoldOblique12pt7b.h>
 
 // data/control and chipi-select pins we are using
-#define TFT_DC 9
-#define TFT_CS 10
+#define TFT_RST 8
+#define TFT_DC  9
+#define TFT_CS  10
 
 // Use hardware SPI (#13, #12, #11) and the above for CS/DC
-Adafruit_ILI9341 tft = Adafruit_ILI9341(TFT_CS, TFT_DC);
+//Adafruit_ILI9341 tft = Adafruit_ILI9341(TFT_CS, TFT_DC);
+Adafruit_ILI9341 tft = Adafruit_ILI9341(TFT_CS, TFT_DC, TFT_RST);
 
 void setup()
 {
   Serial.begin(115200);
   Serial.println("ILI9341 Test!"); 
- 
+
+  // set the TFT reset to HIGH
+//  pinMode(TFT_RESET, OUTPUT);
+//  digitalWrite(TFT_RESET, LOW);
+  
   tft.begin();
 
   // read diagnostics (optional but can help debug problems)

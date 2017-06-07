@@ -53,12 +53,16 @@ void setup()
 void loop(void)
 {
   benchmarks();
-  
+
   for (uint8_t rotation=0; rotation<4; rotation++)
   {
     tft.setRotation(rotation);
     testText();
-    delay(1000);
+    delay(500);
+    tft.invertDisplay(1);
+    delay(500);
+    tft.invertDisplay(0);
+//    delay(1000);
   }
   tft.setRotation(0);
 }

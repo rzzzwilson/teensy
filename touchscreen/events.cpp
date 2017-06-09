@@ -11,7 +11,7 @@
 #include "touchscreen.h"
 
 // define the length of the event queue
-#define EventQueueLength  10
+#define EventQueueLength  20
 
 // the queue itself
 VFOEvent event_queue[EventQueueLength];
@@ -27,7 +27,7 @@ int queue_aft = 0;    // points at next free slot for a pushed event
 
 const char *event2display(VFOEvent *event)
 {
-  static char buffer[128];
+  static char buffer[64];
   
   switch (event->event)
   {

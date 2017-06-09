@@ -8,7 +8,7 @@
 
 // set some values
 // minimum touch repeat period in milliseconds
-#define MIN_REPEAT_PERIOD   1
+#define MIN_REPEAT_PERIOD   2
 // amount pen position must drag before generating new event
 #define MOVE_DELTA          20
 
@@ -102,7 +102,7 @@ static void touch_irq(void)
   else
   { // touch UP
     PenDown = false;
-    event_push(event_Up, 0, 0);
+    event_push(event_Up, last_xraw, last_yraw);
     first_down = true;
   }
 }

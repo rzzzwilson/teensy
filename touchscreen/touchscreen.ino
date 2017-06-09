@@ -33,10 +33,13 @@ void loop(void)
   loop_msraw = now;
 
   // handle all events in the queue
-  while (event_pending() > 0)
+  while (true)
   {
     // get next event and handle it
     VFOEvent *event = event_pop();
+
+    if (event->event == event_None)
+      break;
 
     Serial.printf("Event: %s\n", event2display(event));
   }

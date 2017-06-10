@@ -54,7 +54,7 @@ static void touch_read(void)
   SPI.transfer16(0x91 /* X */);
   SPI.transfer16(0xD1 /* Y */);
   SPI.transfer16(0x91 /* X */);
-  xraw = SPI.transfer16(0xD0 /* Y */) >> 3;  // Last Y touch power down
+  xraw = SPI.transfer16(0xD0 /* Y */) >> 3;
   yraw = SPI.transfer16(0) >> 3;
   
   digitalWrite(cs_pin, HIGH);     // finished comms with slave

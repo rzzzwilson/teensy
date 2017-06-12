@@ -1,13 +1,15 @@
 #include <SPI.h>
 #include <XPT2046_Touchscreen.h>
 #include "events.h"
-#include "touch.h"
+#include "TouchScreen.h"
 
 
 // SPI pins for touchscreen and interrupt pin
 #define T_CS    4
 #define T_IRQ   3
 
+
+TouchScreen touch = TouchScreen(T_CS, T_IRQ, event_queue);
 
 void vfo_abort(const char *msg)
 {
@@ -20,7 +22,7 @@ void setup()
   Serial.println("Touchscreen test code"); 
 
   SPI.begin();
-  touch_setup(T_CS, T_IRQ);
+  TouchScreen(T_CS, T_IRQ, event_queue);
 }
 
 void loop(void)

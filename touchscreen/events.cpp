@@ -1,5 +1,5 @@
 ////////////////////////////////////////////////////////////////////////////////
-// An event queue system for PixelVFO.
+// An event queue class for PixelVFO.
 //
 // Implemented as a circular buffer.
 // Since the code that pushes to the queue is event-driven, we must be
@@ -25,7 +25,7 @@ int queue_aft = 0;    // points at next free slot for a pushed event
 // Used only for debug.
 //----------------------------------------
 
-const char *event2display(VFOEvent *event)
+char *Event::display(VFOEvent *event)
 {
   static char buffer[64];
   
@@ -59,7 +59,7 @@ const char *event2display(VFOEvent *event)
 // This routine is called only from interrupt code, so needs no protection.
 //----------------------------------------
 
-void event_push(Event event, int x, int y)
+void Event::push(Event event, int x, int y)
 {
   // put new event into next empty slot
   event_queue[queue_fore].event = event;
@@ -90,7 +90,7 @@ static VFOEvent NoneEvent = {event_None, 0, 0};
 // Returns event_None if queue is empty.
 //----------------------------------------
 
-VFOEvent *event_pop(void)
+VFOEvent *Event::pop(void)
 {
   // Must protect from RE code fiddling with queue
   noInterrupts();
@@ -119,7 +119,7 @@ VFOEvent *event_pop(void)
 // Returns the number of events in the queue.
 //----------------------------------------
 
-int event_pending(void)
+int Event::pending(void)
 {
   // Must protect from RE code fiddling with queue
   noInterrupts();
@@ -140,9 +140,9 @@ int event_pending(void)
 // Clear out any events in the queue.
 //----------------------------------------
 
-void event_flush(void)
+void Event::flush(void)
 {
-  // Must protect from RE code fiddling with queue
+  // Must protect from code fiddling with queue
   noInterrupts();
 
   queue_fore = 0;
@@ -157,7 +157,7 @@ void event_flush(void)
 // Debug code.
 //----------------------------------------
 
-void event_dump_queue(const char *msg)
+void Event::dump_queue(const char *msg)
 {
   // Must protect from RE code fiddling with queue
   noInterrupts();

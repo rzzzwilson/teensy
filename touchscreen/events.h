@@ -2,7 +2,7 @@
 #define EVENTS_H
 
 ////////////////////////////////////////////////////////////////////////////////
-// An event queue system for PixelVFO.
+// An event queue Class for PixelVFO.
 ////////////////////////////////////////////////////////////////////////////////
 
 // define the VFOevents
@@ -22,12 +22,24 @@ typedef struct
   int y;          // Y coord for the event
 } VFOEvent;
 
-// event functions
-void event_push(Event event, int x, int y);
-VFOEvent *event_pop(void);
-int event_pending(void);
-void event_flush(void);
-void event_dump_queue(const char *msg);
-const char *event2display(VFOEvent *event);
+
+class Event
+{
+  public:
+    Event(int size);
+    ~Event(void);
+    void push(Event event, int x, int y);
+    VFOEvent *pop(void);
+    int pending(void);
+    void flush(void);
+    void dump_queue(const char *msg);
+    const char *display(VFOEvent *event);
+  private:
+    VFOEvent *event_queue; // pointer to the event circular buffer
+
+    // queue pointers
+    int queue_fore;   // index of the next event to be popped
+    int queue_aft;    // index of the next free slot for a pushed event
+}
 
 #endif

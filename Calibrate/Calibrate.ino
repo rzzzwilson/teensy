@@ -5,96 +5,61 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 #include <SPI.h>
-//#include <Adafruit_GFX.h>
 #include <Adafruit_ILI9341.h>
 #include <XPT2046_Touchscreen.h>
 
 const char *ProgramName = "Calibrate";
-const char *Version = "1.0";
-const char *MinorVersion = "1";
+const char *Version = "1.2";
+const char *MinorVersion = "0";
 
 // TFT display chip-select and data/control pins
-#define TFT_RST 8
-#define TFT_DC  9
-#define TFT_CS  10
+#define TFT_RST     8
+#define TFT_DC      9
+#define TFT_CS      10
 
 // pins for touchscreen and IRQ line
-#define T_CS    4
-#define T_IRQ   3
+#define TS_CS       4
+#define TS_IRQ      3
 
-#define SCREEN_BG           ILI9341_BLACK
-#define CROSS_FG            ILI9341_RED
+#define SCREEN_BG   ILI9341_BLACK
+#define CROSS_FG    ILI9341_RED
 
-#define SPI_SETTING         SPISettings(2000000, MSBFIRST, SPI_MODE0)
+// variables
+typedef struct cal_data
+{
+  uint16_t x;
+  uint16_t y;
+  uint16_t raw_x;
+  uint16_t raw_y;
+} CalData;
 
-#define MIN_REPEAT_PERIOD   20
+#define NumCalPoints  9
+CalData calibrate[NumCalPoints];
+
+int cal_index = 0;    // index into calibrate[]
+
+int state;
+int count;
 
 // Declare the display interface
 Adafruit_ILI9341 tft = Adafruit_ILI9341(TFT_CS, TFT_DC, TFT_RST);
 
-// variables
-bool PenDown = false;
-
-int minx = 5000;
-int miny = 5000;
-int maxx = -1;
-int maxy = -1;
-
-int last_minx = 5000;
-int last_miny = 5000;
-int last_maxx = -1;
-int last_maxy = -1;
-
-
-//-----------------------------------------------
-// Read touch screen, return raw coordinates if touched.
-//
-//     x, y  address of X & Y coordinates to update
-//
-// Returns 'true' if touched, X and Y updated
-//-----------------------------------------------
-
-bool touch_read(int *x, int *y)
-{
-  // if finger not down, do nothing
-  if (! PenDown) return false;
-
-  // otherwise, read the device
-  SPI.beginTransaction(SPI_SETTING);
-  digitalWrite(T_CS, LOW);      // enable comms with slave
-
-  SPI.transfer16(0x91 /* X */);   // we seem to read a few times
-  SPI.transfer16(0xD1 /* Y */);
-  SPI.transfer16(0x91 /* X */);
-  SPI.transfer16(0xD1 /* Y */);
-  SPI.transfer16(0x91 /* X */);
-  *x = SPI.transfer16(0xD0 /* Y */) >> 3;
-  *y = SPI.transfer16(0) >> 3;
-
-  digitalWrite(T_CS, HIGH);     // finished comms with slave
-  SPI.endTransaction();
-
-  return true;
-}
+// declare the touchscreen interface
+XPT2046_Touchscreen ts(TS_CS);
 
 //----------------------------------------
-// Interrupt - pen went down or up.
+// Interrupt - pen went down (or up).
 //
-// Maintain the correct PenDown state and call touch_read() if DOWN.
-// Also push a event_Up event if going UP.
+// Maintain the correct PenDown state.
 //----------------------------------------
 
+#if 0
 void touch_isr(void)
 {
-  static uint32_t  msraw = 0L;
-  uint32_t now = millis();
-
-  // ignore interrupt if too quick
-  if ((now - msraw) < MIN_REPEAT_PERIOD) return;
-  msraw = now;
-
-  PenDown = (digitalRead(T_IRQ) == 0);
+  PenDown = (digitalRead(TS_IRQ) == 0);
+  Serial.printf("%d:PenDown=%s\n", millis(), (PenDown) ? "true" : "false");
 }
+#endif
 
 //-----------------------------------------------
 // Initialize PixelVFO.
@@ -107,12 +72,34 @@ void setup(void)
   Serial.printf("%s %s.%s\n", ProgramName, Version, MinorVersion); 
 
   // initialize the pins, mode and level
-  pinMode(T_CS, OUTPUT);
-  digitalWrite(T_CS, HIGH);
-  pinMode(T_IRQ, INPUT_PULLUP);
+  pinMode(TS_CS, OUTPUT);
+  digitalWrite(TS_CS, HIGH);
+  pinMode(TS_IRQ, INPUT);  // has external pullup & smothing
 
-  // initiaize some state
-  PenDown = false;
+  // setup the target points array 'calibrate'
+  int ndx = 0;
+  int save_x = 0;
+  int save_y = 0;
+      
+  for (int y = 0; y <= 240; y += 120)
+  {
+    for (int x = 0; x <= 320; x += 160)
+    {
+      save_x = x;
+      save_y = y;
+      if (save_x >= 320) save_x = 319;
+      if (save_y >= 240) save_y = 239;
+      calibrate[ndx].x = save_x;
+      calibrate[ndx].y = save_y;
+      calibrate[ndx].raw_x = 0;
+      calibrate[ndx].raw_y = 0;
+      ++ndx;
+    }
+  }
+  cal_index = 0;
+
+  count = 1;
+  state = 0;
 
   // kick off the SPI system
   SPI.begin();
@@ -125,8 +112,26 @@ void setup(void)
   tft.fillScreen(SCREEN_BG);
   tft.setTextWrap(false);
 
-  // link the irq_pin pint to it's interrupt handler
-  attachInterrupt(digitalPinToInterrupt(T_IRQ), touch_isr, CHANGE);
+  // draw the initial target
+  draw_target(cal_index);
+}
+
+void draw_target(int ndx)
+{
+  int x = calibrate[ndx].x;
+  int y = calibrate[ndx].y;
+  
+  for (int i = 2; i <= 10; ++i)
+    tft.fillCircle(x, y, i, ILI9341_RED);
+}
+
+void undraw_target(int ndx)
+{
+  int x = calibrate[ndx].x;
+  int y = calibrate[ndx].y;
+  
+  for (int i = 2; i <= 10; ++i)
+    tft.fillCircle(x, y, i, SCREEN_BG);
 }
 
 //-----------------------------------------------
@@ -135,28 +140,40 @@ void setup(void)
 
 void loop(void)
 {
-  int pen_x;
-  int pen_y;
-
-  if (touch_read(&pen_x, &pen_y))
+  switch (state)
   {
-    if (pen_x < minx) minx = pen_x;
-    if (pen_y < miny) miny = pen_y;
-    if (pen_x > maxx) maxx = pen_x;
-    if (pen_y > maxy) maxy = pen_y;
-  }
+    case 0:
+      if (ts.touched())
+      {
+        TS_Point p = ts.getPoint();
+        uint16_t pen_x = p.x;
+        uint16_t pen_y = p.y;
 
-  if (minx != last_minx || miny != last_miny || maxx != last_maxx || maxy != last_maxy)
-  {
-    Serial.printf("// touchscreen calibration data\n");
-    Serial.printf("#define TS_MINX %d\n", minx);
-    Serial.printf("#define TS_MINY %d\n", miny);
-    Serial.printf("#define TS_MAXX %d\n", maxx);
-    Serial.printf("#define TS_MAXY %d\n\n", maxy);
-
-    last_minx = minx;
-    last_miny = miny;
-    last_maxx = maxx;
-    last_maxy = maxy;
+        undraw_target(cal_index);
+        calibrate[cal_index].raw_x = (int) (calibrate[cal_index].raw_x * (count-1)/count + pen_x/count);
+        calibrate[cal_index].raw_y = (int) (calibrate[cal_index].raw_y * (count-1)/count + pen_y/count);
+        state = 1;
+      }
+      break;
+    case 1:
+      if (! ts.touched())
+      {
+        if (++cal_index >= NumCalPoints)
+        {
+          Serial.printf("count=%d\n", count);
+          for (int ndx = 0; ndx < NumCalPoints; ndx += 1)
+          {
+            Serial.printf("%02d: x=%3d, y=%3d, raw_x=%4d, raw_y=%4d\n",
+                          ndx, calibrate[ndx].x, calibrate[ndx].y,
+                          calibrate[ndx].raw_x, calibrate[ndx].raw_y); 
+          }
+          cal_index = 0;
+          ++count;
+        }
+        state = 0;
+        draw_target(cal_index);
+      }
+      break;
   }
 }
+

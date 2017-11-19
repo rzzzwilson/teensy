@@ -14,9 +14,9 @@
  ****************************************************/
 
 
-#include "SPI.h"
-#include "Adafruit_GFX.h"
-#include "Adafruit_ILI9341.h"
+#include <SPI.h>
+#include <Adafruit_GFX.h>
+#include <Adafruit_ILI9341.h>
 #include <Fonts/FreeSerif9pt7b.h>
 #include <Fonts/FreeMonoBoldOblique12pt7b.h>
 

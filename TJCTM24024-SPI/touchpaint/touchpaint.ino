@@ -24,10 +24,17 @@
 
 
 // This is calibration data for the raw touch data to the screen coordinates
-#define TS_MINX 336
-#define TS_MINY 221
-#define TS_MAXX 3824
-#define TS_MAXY 3935
+// 2.8" calibration
+#define TS_MINX 200
+#define TS_MINY 340
+#define TS_MAXX 3700
+#define TS_MAXY 3895
+
+// 2.2" calibration
+//#define TS_MINX 170
+//#define TS_MINY 180
+//#define TS_MAXX 3720
+//#define TS_MAXY 3800
 
 // The XPT2046 uses hardware SPI on the shield, and #4, with #3 for interrupts, maybe
 #define CS_PIN    4
